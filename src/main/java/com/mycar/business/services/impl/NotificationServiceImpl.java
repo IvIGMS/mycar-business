@@ -18,14 +18,12 @@ public class NotificationServiceImpl implements NotificationService {
     private final NotificationRepository notificationRepository;
     private final NotificationTypeService notificationTypeService;
     private final IssueService issueService;
-    private final KafkaProducerServiceImpl kafkaProducerService;
     private final ObjectMapper objectMapper;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository, NotificationTypeService notificationTypeService, IssueService issueService, KafkaProducerServiceImpl kafkaProducerService, ObjectMapper objectMapper){
+    public NotificationServiceImpl(NotificationRepository notificationRepository, NotificationTypeService notificationTypeService, IssueService issueService, ObjectMapper objectMapper){
         this.notificationRepository = notificationRepository;
         this.notificationTypeService = notificationTypeService;
         this.issueService = issueService;
-        this.kafkaProducerService = kafkaProducerService;
         this.objectMapper = objectMapper;
     }
     @Override
@@ -51,11 +49,6 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void sendNotification(NotificationEntity notificationEntity) {
-        try {
-            kafkaProducerService.sendMessage(objectMapper.writeValueAsString(notificationEntity));
-            notificationRepository.activeIsSend(notificationEntity.getId());
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        // Implementar
     }
 }

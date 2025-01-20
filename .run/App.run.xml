@@ -1,10 +1,12 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="App" type="Application" factoryName="Application">
     <envs>
-      <env name="KAFKA_TOPIC_NAME" value="B2N-topic" />
-      <env name="KAFKA_URL" value="localhost:9092" />
-      <env name="SPRING_PROFILES_ACTIVE" value="local" />
+      <env name="DATABASE_PASSWORD" value="postgres" />
+      <env name="DATABASE_URL" value="jdbc:postgresql://localhost:5433/mycar-business" />
+      <env name="DATABASE_USER" value="postgres" />
       <env name="SERVER_PORT" value="8081" />
+      <env name="SPRING_PROFILES_ACTIVE" value="local" />
+      <env name="SQL_INIT_MODE" value="never" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mycar.business.BusinessApplication" />
     <module name="business" />
