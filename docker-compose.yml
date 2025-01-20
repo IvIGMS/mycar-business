@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  db-business:
+    image: postgres:13
+    container_name: db-business
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mycar-business
+    volumes:
+      - postgres_data_business:/var/lib/postgresql/data
+      - ./db-business/init:/docker-entrypoint-initdb.d
+
+  business:
+    build:
+      context: .
+    container_name: business
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db-business
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      DATABASE_URL: jdbc:postgresql://db-business:5432/mycar-business
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      SQL_INIT_MODE: never
+
+volumes:
+  postgres_data_business:
