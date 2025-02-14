@@ -1,6 +1,7 @@
 package com.mycar.business.controllers;
 
 
+import com.mycar.business.controllers.dto.user.LoginDTO;
 import com.mycar.business.security.JwtUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,10 +14,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -28,9 +25,9 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody Map<String, String> request, HttpServletResponse response) throws AuthenticationException {
-        String email = request.get("email");
-        String password = request.get("password");
+    public ResponseEntity<Void> login(@RequestBody LoginDTO login, HttpServletResponse response) throws AuthenticationException {
+        String email = login.getEmail();
+        String password = login.getPassword();
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password));

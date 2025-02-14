@@ -44,6 +44,16 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
         .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // Permitir acceso al login y registro
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs",
+                                "/v3/api-docs.yaml",
+                                "/v3/api-docs.json",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .requestMatchers("/api/users").permitAll() // Permitir acceso al login y registro
                         .anyRequest().authenticated()
                         .and()

@@ -6,11 +6,11 @@ import com.mycar.business.controllers.dto.car.CarQueryDTO;
 import com.mycar.business.entities.UserEntity;
 import com.mycar.business.services.CarService;
 import com.mycar.business.services.impl.AuthService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +22,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cars")
+@SecurityRequirement(name = "bearerAuth")
 @Slf4j
 public class CarController {
     private final CarService carService;

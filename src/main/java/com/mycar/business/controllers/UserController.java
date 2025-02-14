@@ -3,13 +3,14 @@ package com.mycar.business.controllers;
 import com.mycar.business.controllers.dto.user.UserDTO;
 import com.mycar.business.controllers.dto.user.UserRegisterDTO;
 import com.mycar.business.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
+@SecurityRequirement(name = "bearerAuth")
 @Slf4j
 public class UserController {
     private final UserService userService;

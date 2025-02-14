@@ -33,4 +33,15 @@ jwt:
   secret: htD77GpfmD37m7bqYcSw339j4U/F/MbrHhcHepUlN98xE8bR5h0qtgbftMRkTy3Y3qe+dH4joxEva03k4aU64w==
   expirationMs: 36000000
 
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operationsSorter: method
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
 KAFKA_TOPIC_NAME: ${KAFKA_TOPIC_NAME}

@@ -19,7 +19,7 @@ public class ControllerHelper {
         return PageRequest.of(page, size, sort);
     }
 
-    private Sort getSortBy(String sort) {
+    public static Sort getSortBy(String sort) {
         return sort.startsWith("-") ? Sort.by(sort.substring(1)).descending() : Sort.by(sort).ascending();
     }
 }

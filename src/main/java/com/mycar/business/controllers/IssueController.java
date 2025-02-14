@@ -6,11 +6,12 @@ import com.mycar.business.controllers.utils.ControllerHelper;
 import com.mycar.business.entities.UserEntity;
 import com.mycar.business.services.impl.AuthService;
 import com.mycar.business.services.IssueService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/issues")
+@SecurityRequirement(name = "bearerAuth")
 @Slf4j
 public class IssueController {
     private final AuthService authService;
@@ -34,9 +36,14 @@ public class IssueController {
     }
 
     @GetMapping()
-    public ResponseEntity<Page<IssueQueryDTO>> getIssues(HttpServletRequest request){
+    public ResponseEntity<Page<IssueQueryDTO>> getIssues(
+            HttpServletRequest request,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "-createdAt") String sort
+    ){
         UserEntity user = authService.getLoggedInUser(request);
-        Pageable pageable = controllerHelper.getPageable(request);
+        Pageable pageable = PageRequest.of(page, size, ControllerHelper.getSortBy(sort));
 
         Page<IssueQueryDTO> issues = issueService.getIssues(user.getId(), pageable);
         return ResponseEntity.ok(issues);
